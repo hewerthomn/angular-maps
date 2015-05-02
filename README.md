@@ -16,7 +16,7 @@ Available via [bower](http://bower.io/)
 Include the files `angular-maps.css` and `angular-maps.js`.
 
 ```html
-<script src="bower_components/angular-maps/angular-maps.css"></script>
+<link href="bower_components/angular-maps/angular-maps.css" rel="stylesheet">
 <script src="bower_components/angular-maps/angular-maps.js"></script>
 ```
 
