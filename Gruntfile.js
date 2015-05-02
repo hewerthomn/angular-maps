@@ -84,7 +84,8 @@
 			}
 		});
 
-		grunt.registerTask('default', ['concat', 'concat_css', 'cssmin', 'jsdoc', 'uglify', 'gh-pages']);
+		grunt.registerTask('default', ['concat', 'concat_css', 'cssmin', 'jsdoc', 'uglify']);
+		grunt.registerTask('docs', 		['default', 'jsdoc', 'gh-pages']);
 
 		require('time-grunt')(grunt);
 		require('jit-grunt')(grunt);
