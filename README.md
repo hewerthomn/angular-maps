@@ -56,7 +56,7 @@ And add a div with the same id used when create the map object
 
 # API Reference
 
-[angular-maps.github.io/](http://angular-maps.github.io)
+[hewerthomn.github.io/angular-maps](http://hewerthomn.github.io/angular-maps)
 
 # License
 
