@@ -6,7 +6,7 @@
 	"plugins"   : [],
 
 	"templates" : {
-		"systemName"            : "ngMaps",
+		"systemName"            : "Angular Maps",
 		"copyright"             : "Created by Everton Inocencio <b>hewerthomn</b>",
 		"footer"                : "",
 		"navType"               : "vertical",
