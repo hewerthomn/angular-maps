@@ -74,10 +74,17 @@
 						atBegin: true
 					}
 				}
+			},
+
+			'gh-pages': {
+				options: {
+					base: 'doc'
+				},
+				src: '**/*'
 			}
 		});
 
-		grunt.registerTask('default', ['concat', 'concat_css', 'cssmin', 'jsdoc', 'uglify']);
+		grunt.registerTask('default', ['concat', 'concat_css', 'cssmin', 'jsdoc', 'uglify', 'gh-pages']);
 
 		require('time-grunt')(grunt);
 		require('jit-grunt')(grunt);
