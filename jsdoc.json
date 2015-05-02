@@ -1,0 +1,25 @@
+{
+	"tags"      : {
+		"allowUnknownTags" : true
+	},
+
+	"plugins"   : [],
+
+	"templates" : {
+		"systemName"            : "ngMaps",
+		"copyright"             : "Created by Everton Inocencio <b>hewerthomn</b>",
+		"footer"                : "",
+		"navType"               : "vertical",
+		"theme" 								: "oblivion",
+		"default"								: {
+			"outputSourceFiles"     : true
+		},
+		"cleverLinks"           : false,
+		"monospaceLinks"        : false,
+		"dateFormat"            : "ddd MMM Do YYYY",
+		"outputSourcePath"      : true,
+		"linenums"              : true,
+		"inverseNav"            : true,
+		"highlightTutorialCode" : true
+	}
+}

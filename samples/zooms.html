@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Maps Samples - Zooms</title>
+	<link rel="stylesheet" href="sample.css">
+
+
+	<link rel="stylesheet" href="../angular-maps.css">
+</head>
+<body ng-app="app">
+
+	<div ng-controller="AppController">
+
+		<h1>Angular Maps Samples - Zooms</h1>
+		<hr>
+
+		<div id="map" class="map"></div>
+
+		<br>
+
+		<button type="button" ng-click="getZoom()">Get Actual Zoom</button>
+
+		<button type="button" ng-click="setZoom(zoomMap)">Set Zoom</button>
+		<label>
+			<select ng-model="zoomMap">
+				<option ng-repeat="i in zoomLevels()">{{ i }}</option>
+			</select>
+		</label>
+	</div>
+
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../angular-maps.js"></script>
+<script>
+	angular
+		.module('app', [
+			'ngMaps'
+		])
+		.controller('AppController', function AppController($scope, Map) {
+
+			$scope.map = Map.create({
+				id: 'map',
+				zoom: 1,
+				center: {
+					lon: -63.874779939655,
+					lat: -8.787999118682094
+				}
+			});
+
+			$scope.zoomLevels = function() {
+				return $scope.map.getZoomLevels();
+			};
+
+			$scope.setZoom = function(zoom) {
+				return $scope.map.setZoom(zoom);
+			};
+
+			$scope.getZoom = function() {
+				alert("Actual Zoom Level: \n\n" + $scope.map.getZoom());
+			};
+
+		});
+</script>
+</body>
+</html>

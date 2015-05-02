@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Maps Samples - Center</title>
+	<link rel="stylesheet" href="sample.css">
+
+
+	<link rel="stylesheet" href="../angular-maps.css">
+</head>
+<body ng-app="app">
+
+	<div ng-controller="AppController">
+
+		<h1>Angular Maps Samples - Center</h1>
+		<hr>
+
+		<div id="map" class="map"></div>
+
+		<br>
+
+		<button type="button" ng-click="getCenter()">Get Center</button>
+
+		<button type="button" ng-click="setCenter(locations.portoVelho)">Set Porto Velho</button>
+		<button type="button" ng-click="setCenter(locations.veneza)">Set Veneza</button>
+		<button type="button" ng-click="setCenter(locations.berlin)">Set Berlin</button>
+	</div>
+
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../angular-maps.js"></script>
+<script>
+	angular
+		.module('app', [
+			'ngMaps'
+		])
+		.controller('AppController', function AppController($scope, Map) {
+
+			$scope.locations = {
+				portoVelho: {
+					lon: -63.874779939655,
+					lat: -8.787999118682094
+				},
+				veneza: {
+					lon: 12.329248010156238,
+					lat: 45.43855889116503
+				},
+				berlin: {
+					lon: 13.391016541956533,
+					lat: 52.51409220628761
+				}
+			};
+
+			$scope.map = Map.create({
+				id: 'map',
+				zoom: 3,
+				center: {
+					lon: 10,
+					lat: 20
+				}
+			});
+
+			$scope.setCenter = function(location) {
+				var zoom = 12;
+				return $scope.map.setCenter(location, zoom);
+			};
+
+			$scope.getCenter = function() {
+				var center = $scope.map.getCenter();
+				alert("Actual Center: \n\n" + JSON.stringify(center));
+			};
+
+		});
+</script>
+</body>
+</html>

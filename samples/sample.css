@@ -1,0 +1,19 @@
+
+h1 {
+	font-color: #333;
+}
+
+.container-left {
+	float: left;
+}
+
+.container-right {
+	float: right;
+}
+
+.map {
+	width: 420px;
+	height: 420px;
+	padding: 4px;
+	border: 1px solid #EEE;
+}

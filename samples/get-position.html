@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Maps Samples - Get Position</title>
+	<link rel="stylesheet" href="sample.css">
+
+	<link rel="stylesheet" href="../angular-maps.css">
+</head>
+<body ng-app="app">
+
+	<div ng-controller="AppController">
+
+		<h1>Angular Maps Samples - Get Position</h1>
+		<hr>
+
+		<div id="map" class="map"></div>
+
+		<br>
+
+		<button type="button" ng-click="getPosition()">Get Position</button>
+
+	</div>
+
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../angular-maps.js"></script>
+<script>
+(function(angular, undefined) {
+
+	angular
+		.module('app', [
+			'ngMaps'
+		])
+		.controller('AppController', function AppController($scope, Map) {
+
+			$scope.map = Map.create({
+				id: 'map',
+				zoom: 1,
+				center: {
+					lon: 0,
+					lat: 0
+				}
+			});
+
+			$scope.getPosition = function()
+			{
+				var opts = {
+					/* http://dev.w3.org/geo/api/spec-source.html */
+					geolocationOption: {
+						timeout: 10000,
+						maximumAge: 0,
+						enableHighAccuracy: true
+					}
+				};
+
+				$scope.map.getPosition(opts)
+					.then(function(lonlat) {
+
+						var zoom = 17;
+						$scope.map.setCenter(lonlat, zoom);
+
+					}, function(error) {
+						alert(error);
+					});
+			};
+
+		});
+
+})(window.angular);
+</script>
+</body>
+</html>
