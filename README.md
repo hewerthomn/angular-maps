@@ -1,7 +1,8 @@
-# Angular Maps
+# Angular Maps (ngMaps)
 
-Angular module to create and handle maps.
+Module to create and handle maps to [AngularJS 1.x](https://angularjs.org)
 
+Powered by [OpenLayers 2](http://openlayers.org/two/)
 
 # Install
 
@@ -12,30 +13,42 @@ Available via [bower](http://bower.io/)
 
 # Usage
 
-Include the `angular-maps.css` style and `angular-maps.js` script
+Include the files `angular-maps.css` and `angular-maps.js`.
 
-	<script src="bower_components/angular-maps/angular-maps.js"></script>
+```html
+<script src="bower_components/angular-maps/angular-maps.css"></script>
+<script src="bower_components/angular-maps/angular-maps.js"></script>
+```
 
 Add `ngMaps` in your application dependencies
 
-	app.module('app', [
-		'ngMaps'
-	]);
+```javascript
+app.module('app', [
+	'ngMaps'
+]);
+```
 
 Inject `Map` in your controller
 
-	app.controller('AppController', [$scope, Map, function($scope, Map) {
+```javascript
+app.controller('AppController', [$scope, Map, function($scope, Map) {
 
-		$scope.map = Map.create({
-			id: 'map',
-			zoom: 10,
-			center: {
-				lon: 20,
-				lat: 30
-			}
-		});
+	$scope.map = Map.create({
+		id: 'map',
+		zoom: 10,
+		center: {
+			lon: -63,
+			lat: -8
+		}
+	});
 
-	}]);
+}]);
+```
+
+And add a div with the same id used when create the map object
+```html
+<div id="map" style="width: 420px; height: 420px;"></div>
+```
 
 # Source
 
@@ -47,4 +60,4 @@ Inject `Map` in your controller
 
 # License
 
-**ngMaps** is freely distributable under the terms of the MIT license.
+**Angular Maps** is freely distributable under the terms of the MIT license.
