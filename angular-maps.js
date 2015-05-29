@@ -1666,6 +1666,22 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 			return deferred.promise;
 		};
 
+
+		/**
+		 * Transform latlon object from projection to another
+		 *
+		 * @param {Object} lonlat LonLat object
+		 * @param {String} from From projection
+		 * @param {String} to To projection
+		 *
+		 * @return {Object} lonlat
+		 */
+		this.transform = function(lonlat, from, to) {
+			var dest = new OpenLayers.LonLat(lonlat.lon, lonlat.lat);
+			dest = dest.transform(from, to);
+			return { lon: dest.lon, lat: dest.lat };
+		};
+
 	}
 
 })(window.angular, OpenLayers);

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Maps Samples - Transform</title>
+	<link rel="stylesheet" href="sample.css">
+
+	<link rel="stylesheet" href="../angular-maps.css">
+</head>
+<body ng-app="app">
+
+	<div ng-controller="AppController">
+
+		<h1>Angular Maps Samples - Transform</h1>
+		<hr>
+
+		<p>Source - EPSG:4326</p>
+		<code>
+			{{ original | json }}
+		</code>
+
+		<hr>
+
+		<p>Destiny - EPSG:900193</p>
+		<code>
+			{{ transformed | json }}
+		</code>
+
+		<hr>
+
+		<p>Back to - EPSG:4326</p>
+		<code>
+			{{ retransformed | json }}
+		</code>
+	</div>
+
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../angular-maps.js"></script>
+<script>
+(function(angular, undefined) {
+
+	angular
+		.module('app', [
+			'ngMaps'
+		])
+		.controller('AppController', function AppController($scope, Maps) {
+
+			$scope.original = {
+				lon: -63.874779939655,
+				lat: -8.787999118682094
+			};
+
+			$scope.transformed = Maps.transform($scope.original, 'EPSG:4326', 'EPSG:900913');
+
+			$scope.retransformed = Maps.transform($scope.transformed, 'EPSG:900913', 'EPSG:4326');
+		});
+
+})(window.angular);
+</script>
+</body>
+</html>
