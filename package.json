@@ -12,6 +12,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-gh-pages": "^0.10.0",
     "grunt-jsdoc": "^0.6.3",
+    "grunt-notify": "^0.4.1",
     "jit-grunt": "^0.9.1",
     "jsdoc-oblivion": "0.0.4",
     "time-grunt": "^1.1.1"

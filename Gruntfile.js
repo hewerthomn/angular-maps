@@ -81,8 +81,19 @@
 					base: 'doc'
 				},
 				src: '**/*'
-			}
+			},
+
+			notify_hooks: {
+		    options: {
+		      enabled: true,
+		      success: true,
+		      max_jshint_notifications: 5
+		    }
+		  }
 		});
+
+		grunt.loadNpmTasks('grunt-notify');
+		grunt.task.run('notify_hooks');
 
 		grunt.registerTask('default', ['concat', 'concat_css', 'cssmin', 'jsdoc', 'uglify']);
 		grunt.registerTask('docs', 		['default', 'jsdoc', 'gh-pages']);
