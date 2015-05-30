@@ -44,16 +44,16 @@
 		.module('app', [
 			'ngMaps'
 		])
-		.controller('AppController', function AppController($scope, Maps) {
+		.controller('AppController', function AppController($scope, Map) {
 
 			$scope.original = {
 				lon: -63.874779939655,
 				lat: -8.787999118682094
 			};
 
-			$scope.transformed = Maps.transform($scope.original, 'EPSG:4326', 'EPSG:900913');
+			$scope.transformed = Map.transform($scope.original, 'EPSG:4326', 'EPSG:900913');
 
-			$scope.retransformed = Maps.transform($scope.transformed, 'EPSG:900913', 'EPSG:4326');
+			$scope.retransformed = Map.transform($scope.transformed, 'EPSG:900913', 'EPSG:4326');
 		});
 
 })(window.angular);

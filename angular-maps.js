@@ -1350,6 +1350,22 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 			 */
 			getPosition: function(opts) {
 				return Maps.getPosition(this._map, opts);
+			},
+
+			/**
+			* Transform latlon object from projection to another
+			*
+			* @memberOf ngMaps.factories.Map
+			* @function
+			* @instance
+			* @param {Object} lonlat LonLat object
+			* @param {String} from From projection
+			* @param {String} to To projection
+			*
+			* @return {Object} lonlat
+			*/
+			transform: function(lonlat, from, to) {
+				return Maps.transform(lonlat, from, to);
 			}
 
 		};
