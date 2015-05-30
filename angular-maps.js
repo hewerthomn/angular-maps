@@ -1175,6 +1175,16 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 					numZoomLevels: 22,
 					minZoomLevel: 0,
 					maxZoomLevel: 21
+				},
+				googleMapsHybrid: {
+					numZoomLevels: 22,
+					minZoomLevel: 0,
+					maxZoomLevel: 21
+				},
+				googleMapsNight: {
+					numZoomLevels: 22,
+					minZoomLevel: 0,
+					maxZoomLevel: 21
 				}
 			},
 			layers: {
@@ -1241,8 +1251,8 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 					controls: []
 				});
 
-				Maps.addLayers(this._map, opts.layers);
 				Maps.addBaseLayers(this._map, opts.baselayers);
+				Maps.addLayers(this._map, opts.layers);
 
 				Maps.addControls(this._map, opts.defaultControls);
 
@@ -1253,6 +1263,15 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 
 				return angular.extend(opts, this);
 			},
+
+			/**
+		   * Change the base layer
+		   *
+		   * @param {Integer} Index of base layer. Options: default|hybrid|night
+		   */
+		  setBaseLayer: function(name) {
+		    Maps.setBaseLayer(this._map, name);
+		  },
 
 			/**
 			 * Set center of the map
@@ -1398,6 +1417,8 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 	 */
 	function MapsService ($q) {
 
+		var baselayers = [];
+
 		/**
 		 * Add a base layer to the map
 		 *
@@ -1407,20 +1428,60 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 		 */
 		this.addBaseLayer = function(map, type, opts) {
 			var baselayer;
+			var styledType;
+			var styledOptions;
 
 			switch(type) {
 
 				case 'googleMaps': {
-					baselayer = new OpenLayers.Layer.Google('Google Maps', {
+					baselayer = new OpenLayers.Layer.Google('default', {
 						numZoomLevels: opts.numZoomLevels,
 						minZoomLevel: opts.minZoomLevel,
 						maxZoomLevel: opts.maxZoomLevel
 					});
 				}
 				break;
+
+				case 'googleMapsHybrid': {
+					baselayer = new OpenLayers.Layer.Google('hybrid', {
+						type: google.maps.MapTypeId.HYBRID,
+						numZoomLevels: opts.numZoomLevels,
+						minZoomLevel: opts.minZoomLevel,
+						maxZoomLevel: opts.maxZoomLevel
+					});
+				}
+				break;
+
+				case 'googleMapsNight': {
+					baselayer = new OpenLayers.Layer.Google('night', {
+						type: 'styled',
+						numZoomLevels: opts.numZoomLevels,
+						minZoomLevel: opts.minZoomLevel,
+						maxZoomLevel: opts.maxZoomLevel
+					});
+
+					var styleNight = [{
+		  			featureType: 'all',
+						elementType: 'all',
+						stylers: [
+				      { "invert_lightness": true },
+				      { "visibility": "on" },
+				      { "hue": "#00bbff" },
+				      { "saturation": 1 }
+				    ]
+				 	}];
+					styledOptions = { name: 'Night Map' };
+			  	styledType = new google.maps.StyledMapType(styleNight, styledOptions);
+				}
+				break;
 			}
 
 			map.addLayer(baselayer);
+
+			if(styledType) {
+				baselayer.mapObject.mapTypes.set('styled', styledType);
+				baselayer.mapObject.setMapTypeId('styled');
+			}
 		};
 
 		/**
@@ -1433,6 +1494,18 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 				this.addBaseLayer(map, baselayer, baselayers[baselayer]);
 			}
 		};
+
+		/**
+	   * Change the base layer
+	   *
+	   * @param {String} Type of the base layer. Options: default|hybrid|night
+	   */
+	  this.setBaseLayer = function(map, name) {
+	  	var layer = map.getLayersByName(name)[0];
+	  	if(layer) {
+	    	map.setBaseLayer(layer);
+	  	}
+	  };
 
 		/**
 		 * Add a layer to the map

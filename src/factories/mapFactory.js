@@ -33,6 +33,16 @@
 					numZoomLevels: 22,
 					minZoomLevel: 0,
 					maxZoomLevel: 21
+				},
+				googleMapsHybrid: {
+					numZoomLevels: 22,
+					minZoomLevel: 0,
+					maxZoomLevel: 21
+				},
+				googleMapsNight: {
+					numZoomLevels: 22,
+					minZoomLevel: 0,
+					maxZoomLevel: 21
 				}
 			},
 			layers: {
@@ -99,8 +109,8 @@
 					controls: []
 				});
 
-				Maps.addLayers(this._map, opts.layers);
 				Maps.addBaseLayers(this._map, opts.baselayers);
+				Maps.addLayers(this._map, opts.layers);
 
 				Maps.addControls(this._map, opts.defaultControls);
 
@@ -111,6 +121,15 @@
 
 				return angular.extend(opts, this);
 			},
+
+			/**
+		   * Change the base layer
+		   *
+		   * @param {Integer} Index of base layer. Options: default|hybrid|night
+		   */
+		  setBaseLayer: function(name) {
+		    Maps.setBaseLayer(this._map, name);
+		  },
 
 			/**
 			 * Set center of the map

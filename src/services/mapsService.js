@@ -14,6 +14,8 @@
 	 */
 	function MapsService ($q) {
 
+		var baselayers = [];
+
 		/**
 		 * Add a base layer to the map
 		 *
@@ -23,20 +25,60 @@
 		 */
 		this.addBaseLayer = function(map, type, opts) {
 			var baselayer;
+			var styledType;
+			var styledOptions;
 
 			switch(type) {
 
 				case 'googleMaps': {
-					baselayer = new OpenLayers.Layer.Google('Google Maps', {
+					baselayer = new OpenLayers.Layer.Google('default', {
 						numZoomLevels: opts.numZoomLevels,
 						minZoomLevel: opts.minZoomLevel,
 						maxZoomLevel: opts.maxZoomLevel
 					});
 				}
 				break;
+
+				case 'googleMapsHybrid': {
+					baselayer = new OpenLayers.Layer.Google('hybrid', {
+						type: google.maps.MapTypeId.HYBRID,
+						numZoomLevels: opts.numZoomLevels,
+						minZoomLevel: opts.minZoomLevel,
+						maxZoomLevel: opts.maxZoomLevel
+					});
+				}
+				break;
+
+				case 'googleMapsNight': {
+					baselayer = new OpenLayers.Layer.Google('night', {
+						type: 'styled',
+						numZoomLevels: opts.numZoomLevels,
+						minZoomLevel: opts.minZoomLevel,
+						maxZoomLevel: opts.maxZoomLevel
+					});
+
+					var styleNight = [{
+		  			featureType: 'all',
+						elementType: 'all',
+						stylers: [
+				      { "invert_lightness": true },
+				      { "visibility": "on" },
+				      { "hue": "#00bbff" },
+				      { "saturation": 1 }
+				    ]
+				 	}];
+					styledOptions = { name: 'Night Map' };
+			  	styledType = new google.maps.StyledMapType(styleNight, styledOptions);
+				}
+				break;
 			}
 
 			map.addLayer(baselayer);
+
+			if(styledType) {
+				baselayer.mapObject.mapTypes.set('styled', styledType);
+				baselayer.mapObject.setMapTypeId('styled');
+			}
 		};
 
 		/**
@@ -49,6 +91,18 @@
 				this.addBaseLayer(map, baselayer, baselayers[baselayer]);
 			}
 		};
+
+		/**
+	   * Change the base layer
+	   *
+	   * @param {String} Type of the base layer. Options: default|hybrid|night
+	   */
+	  this.setBaseLayer = function(map, name) {
+	  	var layer = map.getLayersByName(name)[0];
+	  	if(layer) {
+	    	map.setBaseLayer(layer);
+	  	}
+	  };
 
 		/**
 		 * Add a layer to the map
