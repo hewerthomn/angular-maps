@@ -368,6 +368,21 @@
 			return { lon: dest.lon, lat: dest.lat };
 		};
 
+		/**
+		 * Check if lonlat is in bounds
+		 *
+		 * @param {Object} lonlat LonLat object
+		 * @param {Array(Number)} bounds Array with bounds [left, bottom, right, top]
+		 *
+		 * @return {Boolean}
+		 */
+		this.contains = function(lonlat, bounds) {
+			if(bounds === undefined || bounds.length !== 4) return false;
+
+			bounds = new OpenLayers.Bounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+			return bounds.containsLonLat(lonlat);
+		};
+
 	}
 
 })(window.angular, OpenLayers);

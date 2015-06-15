@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Maps Samples - Contains</title>
+	<link rel="stylesheet" href="sample.css">
+
+	<link rel="stylesheet" href="../angular-maps.css">
+</head>
+<body ng-app="app">
+
+	<div ng-controller="AppController">
+
+		<h1>Angular Maps Samples - Contains</h1>
+		<hr>
+
+		<p>LonLat</p>
+		<code>
+			{{ lonlat | json }}
+		</code>
+
+		<hr>
+
+		<p>Bounds</p>
+		<code>
+			{{ bounds | json }}
+		</code>
+
+		<hr>
+
+		<p>Contains?</p>
+		<code>
+			{{ containLonlat | json }}
+		</code>
+	</div>
+
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../angular-maps.js"></script>
+<script>
+(function(angular, undefined) {
+
+	angular
+		.module('app', [
+			'ngMaps'
+		])
+		.controller('AppController', function AppController($scope, Map) {
+
+			$scope.lonlat = {
+				lon: -63.874779939655,
+				lat: -8.787999118682094
+			};
+
+			$scope.bounds = [
+			-63.96180499570328, // lon1 / left
+			-8.861121469317904, // lat1 / bottom
+
+			-63.79769671933609, // lon2 / right
+			-8.684003601013243 // lat2 / top
+			];
+
+			$scope.containLonlat = Map.contains($scope.lonlat, $scope.bounds);
+
+		});
+
+})(window.angular);
+</script>
+</body>
+</html>

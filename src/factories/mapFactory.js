@@ -125,6 +125,9 @@
 			/**
 		   * Change the base layer
 		   *
+		   * @memberOf ngMaps.factories.Map
+			 * @function
+			 * @instance
 		   * @param {Integer} Index of base layer. Options: default|hybrid|night
 		   */
 		  setBaseLayer: function(name) {
@@ -243,6 +246,21 @@
 			*/
 			transform: function(lonlat, from, to) {
 				return Maps.transform(lonlat, from, to);
+			},
+
+			/**
+			 * Check if lonlat is in bounds
+			 *
+			 * @memberOf ngMaps.factories.Map
+			 * @function
+			 * @instance
+			 * @param {Object} lonlat LonLat object
+			 * @param {Array(Number)} bounds Array with bounds [left, bottom, right, top]
+			 *
+			 * @return {Boolean}
+			 */
+			contains: function(lonlat, bounds) {
+				return Maps.contains(lonlat, bounds);
 			}
 
 		};

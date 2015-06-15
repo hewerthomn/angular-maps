@@ -1267,6 +1267,9 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 			/**
 		   * Change the base layer
 		   *
+		   * @memberOf ngMaps.factories.Map
+			 * @function
+			 * @instance
 		   * @param {Integer} Index of base layer. Options: default|hybrid|night
 		   */
 		  setBaseLayer: function(name) {
@@ -1385,6 +1388,21 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 			*/
 			transform: function(lonlat, from, to) {
 				return Maps.transform(lonlat, from, to);
+			},
+
+			/**
+			 * Check if lonlat is in bounds
+			 *
+			 * @memberOf ngMaps.factories.Map
+			 * @function
+			 * @instance
+			 * @param {Object} lonlat LonLat object
+			 * @param {Array(Number)} bounds Array with bounds [left, bottom, right, top]
+			 *
+			 * @return {Boolean}
+			 */
+			contains: function(lonlat, bounds) {
+				return Maps.contains(lonlat, bounds);
 			}
 
 		};
@@ -1769,6 +1787,21 @@ return false;},CLASS_NAME:"OpenLayers.Handler.Path"});;(function(angular) {
 			var dest = new OpenLayers.LonLat(lonlat.lon, lonlat.lat);
 			dest = dest.transform(from, to);
 			return { lon: dest.lon, lat: dest.lat };
+		};
+
+		/**
+		 * Check if lonlat is in bounds
+		 *
+		 * @param {Object} lonlat LonLat object
+		 * @param {Array(Number)} bounds Array with bounds [left, bottom, right, top]
+		 *
+		 * @return {Boolean}
+		 */
+		this.contains = function(lonlat, bounds) {
+			if(bounds === undefined || bounds.length !== 4) return false;
+
+			bounds = new OpenLayers.Bounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+			return bounds.containsLonLat(lonlat);
 		};
 
 	}
