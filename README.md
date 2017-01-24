@@ -1,4 +1,5 @@
 # Angular Maps (ngMaps)
+# [DEPRECATED]
 
 Module to create and handle maps to [AngularJS 1.x](https://angularjs.org)
 
